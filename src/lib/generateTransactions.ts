@@ -1,0 +1,48 @@
+import { faker } from "@faker-js/faker";
+
+export type Transaction = {
+  id: string;
+  title: string;
+  amount: number;
+  date: string;
+  category: string;
+  type: "income" | "expense";
+};
+
+const categories = {
+  income: ["Salary", "Professional services", "Other"],
+  expense: [
+    "Groceries",
+    "Rent and utilities",
+    "Healthcare",
+    "Sports",
+    "Education",
+    "Entertainment",
+    "Pets",
+    "Travel",
+    "Investments",
+    "Home",
+    "Other",
+  ],
+};
+
+export function generateTransactions(count: number = 20): Transaction[] {
+  return Array.from({ length: count }, () => {
+    const type = faker.helpers.arrayElement(["income", "expense"] as const);
+    const category = faker.helpers.arrayElement(categories[type]);
+
+    const isExpense = faker.datatype.boolean(0.92);
+    const amount = isExpense
+      ? -parseFloat(faker.finance.amount({ min: 5, max: 500, dec: 2 }))
+      : parseFloat(faker.finance.amount({ min: 500, max: 5000, dec: 2 }));
+
+    return {
+      id: faker.string.uuid(),
+      date: faker.date.recent({ days: 90 }).toISOString().split("T")[0],
+      title: faker.lorem.sentence(),
+      amount,
+      category,
+      type,
+    };
+  });
+}
