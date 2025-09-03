@@ -1,17 +1,19 @@
+"use client";
+
+import { useTransactions } from "@/context/TransactionsContext";
+
 import TransactionCard from "./TransactionCard";
 
-import { Transaction } from "../lib/generateTransactions";
+const TransactionCards = () => {
+  const { transactions } = useTransactions();
 
-const TransactionCards = ({
-  transactions,
-}: {
-  transactions: Transaction[];
-}) => (
-  <div className="grid grid-cols-1 gap-2 divide-y  divide-gray-100">
-    {transactions.map((transaction) => (
-      <TransactionCard key={transaction.id} transaction={transaction} />
-    ))}
-  </div>
-);
+  return (
+    <ul className="grid grid-cols-1 gap-2 divide-y  divide-gray-100">
+      {transactions.map((transaction) => (
+        <TransactionCard key={transaction.id} transaction={transaction} />
+      ))}
+    </ul>
+  );
+};
 
 export default TransactionCards;

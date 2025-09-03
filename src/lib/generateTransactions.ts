@@ -1,13 +1,5 @@
 import { faker } from "@faker-js/faker";
-
-export type Transaction = {
-  id: string;
-  title: string;
-  amount: number;
-  date: string;
-  category: string;
-  type: "income" | "expense";
-};
+import { Transaction } from "./types";
 
 const categories = {
   income: ["Salary", "Professional services", "Other"],
