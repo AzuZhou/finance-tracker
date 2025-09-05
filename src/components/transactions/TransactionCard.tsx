@@ -1,4 +1,4 @@
-import { Transaction } from "../lib/generateTransactions";
+import { Transaction } from "@/lib/types";
 
 const TransactionCard = ({ transaction }: { transaction: Transaction }) => (
   <li className="flex justify-between items-center p-4 gap-2">

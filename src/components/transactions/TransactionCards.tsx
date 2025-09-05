@@ -1,8 +1,8 @@
 "use client";
 
-import { useTransactions } from "@/context/TransactionsContext";
-
 import TransactionCard from "./TransactionCard";
+
+import { useTransactions } from "@/contexts/TransactionsContext";
 
 const TransactionCards = () => {
   const { transactions } = useTransactions();
