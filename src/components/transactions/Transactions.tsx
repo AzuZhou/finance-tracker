@@ -1,24 +1,47 @@
 "use client";
 
 import { useState } from "react";
+import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
+
 import FloatingButton from "../ui/FloatingButton";
 import Modal from "../ui/Modal";
-
+import AddTransactionForm from "./AddTransactionForm";
 import TransactionCards from "./TransactionCards";
 
 const Transactions = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [transactionType, setTransactionType] = useState<"income" | "expense">(
+    "expense",
+  );
+
+  const openModal = (type: "income" | "expense") => {
+    setTransactionType(type);
+    setIsModalOpen(true);
+  };
 
   return (
     <>
       <TransactionCards />
 
-      <FloatingButton handleClick={() => setIsOpen(true)}>
-        Add transaction
-      </FloatingButton>
+      <div className="fixed bottom-4 flex gap-4">
+        <FloatingButton
+          handleClick={() => openModal("income")}
+          label="Add Income"
+          icon={PlusIcon}
+        />
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="">
-        <form></form>
+        <FloatingButton
+          handleClick={() => openModal("expense")}
+          label="Add Expense"
+          icon={MinusIcon}
+        />
+      </div>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <AddTransactionForm
+          onClose={() => setIsModalOpen(false)}
+          type={transactionType}
+        />
       </Modal>
     </>
   );

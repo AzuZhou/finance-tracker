@@ -18,7 +18,7 @@ const categories = {
   ],
 };
 
-export function generateTransactions(count: number = 20): Transaction[] {
+function generateTransactions(count: number = 20): Transaction[] {
   return Array.from({ length: count }, () => {
     const type = faker.helpers.arrayElement(["income", "expense"] as const);
     const category = faker.helpers.arrayElement(categories[type]);
@@ -30,11 +30,13 @@ export function generateTransactions(count: number = 20): Transaction[] {
 
     return {
       id: faker.string.uuid(),
-      date: faker.date.recent({ days: 90 }).toISOString().split("T")[0],
-      title: faker.lorem.sentence(),
+      date: faker.date.recent({ days: 90 }).toISOString().slice(0, 16),
+      description: faker.lorem.sentence(),
       amount,
       category,
       type,
     };
   });
 }
+
+export { generateTransactions, categories };

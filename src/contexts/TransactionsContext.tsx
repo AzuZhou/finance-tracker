@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { faker } from "@faker-js/faker";
 
 import { generateTransactions } from "@/lib/generateTransactions";
 import { Transaction } from "@/lib/types";
@@ -39,7 +38,7 @@ const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
 
   const addTransaction = (transaction: Transaction) => {
     setTransactions((prev) => {
-      const updated = [...prev, { ...transaction, id: faker.string.uuid() }];
+      const updated = [...prev, transaction];
       localStorage.setItem("transactions", JSON.stringify(updated));
       return updated;
     });
