@@ -1,27 +1,11 @@
 import { faker } from "@faker-js/faker";
 import { Transaction } from "./types";
+import { CATEGORIES } from "./contants";
 
-const categories = {
-  income: ["Salary", "Professional services", "Other"],
-  expense: [
-    "Groceries",
-    "Rent and utilities",
-    "Healthcare",
-    "Sports",
-    "Education",
-    "Entertainment",
-    "Pets",
-    "Travel",
-    "Investments",
-    "Home",
-    "Other",
-  ],
-};
-
-function generateTransactions(count: number = 20): Transaction[] {
+export const generateTransactions = (count: number = 200): Transaction[] => {
   return Array.from({ length: count }, () => {
     const type = faker.helpers.arrayElement(["income", "expense"] as const);
-    const category = faker.helpers.arrayElement(categories[type]);
+    const category = faker.helpers.arrayElement(CATEGORIES[type]);
 
     const isExpense = faker.datatype.boolean(0.92);
     const amount = isExpense
@@ -37,6 +21,4 @@ function generateTransactions(count: number = 20): Transaction[] {
       type,
     };
   });
-}
-
-export { generateTransactions, categories };
+};

@@ -10,7 +10,7 @@ const Form = ({ children, onSubmit, title }: FormProps) => {
   return (
     <form onSubmit={onSubmit}>
       {title && (
-        <h2 className="mb-4 text-lg font-medium text-gray-900">{title}</h2>
+        <h2 className="font-center mb-4 text-lg font-medium">{title}</h2>
       )}
 
       {children}

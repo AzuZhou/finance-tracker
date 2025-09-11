@@ -11,7 +11,7 @@ type TransactionsContextType = {
 };
 
 const TransactionsContext = createContext<TransactionsContextType | undefined>(
-  undefined
+  undefined,
 );
 
 const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
@@ -23,11 +23,11 @@ const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
     if (saved) {
       setTransactions(JSON.parse(saved));
     } else {
-      const generatedTransactions = generateTransactions(50);
+      const generatedTransactions = generateTransactions();
       setTransactions(generatedTransactions);
       localStorage.setItem(
         "transactions",
-        JSON.stringify(generatedTransactions)
+        JSON.stringify(generatedTransactions),
       );
     }
   }, []);

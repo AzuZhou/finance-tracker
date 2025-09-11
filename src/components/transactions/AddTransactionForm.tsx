@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { faker } from "@faker-js/faker";
 
-import { categories } from "@/lib/generateTransactions";
+import { CATEGORIES } from "@/lib/contants";
 
 import Form from "@/components/ui/Form";
 
@@ -29,7 +29,6 @@ const AddTransactionForm = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("submit: ", amount, description, category);
     if (!amount || !description || !category) return;
 
     addTransaction({
@@ -91,7 +90,7 @@ const AddTransactionForm = ({
           <option key="default-category" value="">
             Select a category
           </option>
-          {categories[type].map((category) => (
+          {CATEGORIES[type].map((category) => (
             <option key={category} value={category}>
               {category}
             </option>
