@@ -14,12 +14,12 @@ const FloatingButton = ({
   return (
     <button
       onClick={handleClick}
-      className="flex cursor-pointer flex-col items-center gap-1"
+      className="flex cursor-pointer flex-col items-center gap-2"
       aria-label={label}
     >
-      <Icon className="h-8 w-8 rounded-full border border-[var(--foreground)] bg-[var(--background)] p-1" />
-      <div className="rounded-xs bg-[var(--background)]/75 pr-1 pl-1">
-        <span className="text-xs">{label}</span>
+      <Icon className="h-8 w-8 rounded-full border border-[var(--primary-color)] bg-[var(--primary-color)] p-1 text-[var(--background)]" />
+      <div className="flex rounded-xs bg-[var(--background)]/95 pr-1 pl-1">
+        <span className="text-[10px] text-[var(--primary-color)]">{label}</span>
       </div>
     </button>
   );

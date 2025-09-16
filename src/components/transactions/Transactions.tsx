@@ -26,13 +26,13 @@ const Transactions = () => {
       <div className="fixed bottom-4 flex gap-4">
         <FloatingButton
           handleClick={() => openModal("income")}
-          label="Add Income"
+          label="Income"
           icon={PlusIcon}
         />
 
         <FloatingButton
           handleClick={() => openModal("expense")}
-          label="Add Expense"
+          label="Expense"
           icon={MinusIcon}
         />
       </div>

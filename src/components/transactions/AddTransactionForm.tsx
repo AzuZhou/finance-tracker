@@ -6,10 +6,10 @@ import { faker } from "@faker-js/faker";
 import { CATEGORIES } from "@/lib/contants";
 
 import Form from "@/components/ui/Form";
+import Select from "@/components/ui/Select";
+import FormInput from "@/components/ui/FormInput";
 
 import { useTransactions } from "@/contexts/TransactionsContext";
-
-// TODO: handle errors here as well
 
 const AddTransactionForm = ({
   onClose,
@@ -45,64 +45,41 @@ const AddTransactionForm = ({
 
   return (
     <Form onSubmit={handleSubmit} title={title}>
-      <>
-        <label htmlFor="description">Description</label>
-        <input
-          type="text"
-          id="transaction-description"
-          name="description"
-          placeholder="Describe your transaction"
-          value={description}
-          onChange={(e) => {
-            const { value } = e.target;
-            if (/^[a-zA-Z0-9\s.,!?'-]*$/.test(value) && value.length <= 30) {
-              setDescription(value);
-            }
-          }}
-        />
-      </>
+      <FormInput
+        label="Description"
+        name="description"
+        value={description}
+        placeholder="Describe your transaction"
+        maxLength={30}
+        setValue={setDescription}
+        validate={(value) => /^[a-zA-Z0-9\s.,!?'-]*$/.test(value)}
+      />
+
+      <FormInput
+        label="Amount Due"
+        name="amount"
+        placeholder="00.00"
+        value={amount}
+        setValue={setAmount}
+        validate={(value) => /^\d*\.?\d{0,2}$/.test(value)}
+      />
+
+      <Select
+        label="Category"
+        name="category"
+        value={category}
+        setValue={setCategory}
+        defaultOption="Select a category"
+        options={CATEGORIES[type]}
+      />
 
       <>
-        <label htmlFor="amount">Amount due</label>
-        <input
-          type="text"
-          id="transaction-amount"
-          name="amount"
-          placeholder="0.00"
-          value={amount}
-          onChange={(e) => {
-            const { value } = e.target;
-            if (/^\d*\.?\d{0,2}$/.test(value)) {
-              setAmount(value);
-            }
-          }}
-        />
+        <button type="submit">Add</button>
+
+        <button type="button" onClick={onClose}>
+          Cancel
+        </button>
       </>
-
-      <>
-        <label htmlFor="category">Category</label>
-        <select
-          id="transaction-category"
-          name="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option key="default-category" value="">
-            Select a category
-          </option>
-          {CATEGORIES[type].map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-      </>
-
-      <button type="submit">Add</button>
-
-      <button type="button" onClick={onClose}>
-        Cancel
-      </button>
     </Form>
   );
 };

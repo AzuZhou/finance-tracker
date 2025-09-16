@@ -9,7 +9,6 @@ import { getDateLabel } from "@/lib/getDateLabel";
 
 const TransactionCards = () => {
   const { transactions } = useTransactions();
-  console.log("transactions: ", transactions);
 
   const sortedTransactions = [...transactions].sort((a, b) =>
     b.date.localeCompare(a.date),
@@ -29,11 +28,11 @@ const TransactionCards = () => {
       {Object.keys(groupedTransactions).map((date) => {
         return (
           <div key={date}>
-            <h2 className="mx-2 mb-1 text-base font-bold">
+            <h2 className="mx-2 mb-1 text-sm font-bold">
               {getDateLabel(date)}
             </h2>
 
-            <ul className="flex flex-col divide-y divide-gray-100">
+            <ul className="flex flex-col divide-y divide-[var(--secondary-color)]">
               {groupedTransactions[date].map((transaction) => (
                 <TransactionCard
                   key={transaction.id}

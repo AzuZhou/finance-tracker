@@ -8,9 +8,9 @@ export type FormProps = {
 
 const Form = ({ children, onSubmit, title }: FormProps) => {
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="flex flex-col gap-4">
       {title && (
-        <h2 className="font-center mb-4 text-lg font-medium">{title}</h2>
+        <h2 className="font-center my-4 text-lg font-medium">{title}</h2>
       )}
 
       {children}
