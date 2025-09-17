@@ -8,6 +8,7 @@ import { CATEGORIES } from "@/lib/contants";
 import Form from "@/components/ui/Form";
 import Select from "@/components/ui/Select";
 import FormInput from "@/components/ui/FormInput";
+import Button from "@/components/ui/Button";
 
 import { useTransactions } from "@/contexts/TransactionsContext";
 
@@ -73,13 +74,12 @@ const AddTransactionForm = ({
         options={CATEGORIES[type]}
       />
 
-      <>
-        <button type="submit">Add</button>
-
-        <button type="button" onClick={onClose}>
+      <div className="mt-6 flex flex-col gap-4 sm:mt-8 sm:flex-row sm:justify-center sm:gap-6">
+        <Button type="submit">Add</Button>
+        <Button type="button" variant="secondary" onClick={onClose}>
           Cancel
-        </button>
-      </>
+        </Button>
+      </div>
     </Form>
   );
 };
