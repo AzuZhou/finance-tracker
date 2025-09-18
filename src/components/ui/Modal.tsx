@@ -20,7 +20,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 
         <div className="fixed inset-0 flex items-center justify-center">
           <div
-            className="h-full w-full transform bg-[var(--foreground)] px-6 shadow-lg transition-all duration-300 ease-out sm:h-auto sm:max-w-md sm:rounded-lg sm:px-8"
+            className="h-full w-full transform bg-[var(--background)] px-6 shadow-lg transition-all duration-300 ease-out sm:h-auto sm:max-w-md sm:rounded-lg sm:px-8"
             style={{
               opacity: isOpen ? 1 : 0,
               scale: isOpen ? 1 : 0.95,

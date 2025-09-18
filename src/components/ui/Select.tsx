@@ -31,7 +31,7 @@ const Select = ({
       <Listbox name={name} value={value} onChange={setValue}>
         <ListboxButton
           value={value}
-          className="relative border-b-1 border-[var(--secondary-color)] text-start indent-1.5 text-sm text-[var(--text-muted)]"
+          className={`relative border-b-1 border-[var(--secondary-color)] text-start indent-1.5 text-sm ${value ? "" : "text-[var(--text-muted)]"}`}
         >
           {value || defaultOption}
           <ChevronDownIcon

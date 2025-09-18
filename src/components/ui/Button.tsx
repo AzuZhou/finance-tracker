@@ -16,9 +16,9 @@ const Button = ({
 }: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   const variantStyles = {
     primary:
-      "text-[var(--foreground)] bg-[var(--primary-color)] sm:bg-[--var(foreground)] border-[var(--primary-color)] sm:text-[var(--primary-color)] sm:hover:text-[var(--foreground)] sm:hover:bg-[var(--primary-color)]",
+      "text-[var(--background)] bg-[var(--primary-color)] sm:bg-[--var(background)] border-[var(--primary-color)] sm:text-[var(--primary-color)] sm:hover:text-[var(--background)] sm:hover:bg-[var(--primary-color)]",
     secondary:
-      "text-[var(--foreground)] bg-[var(--error-color)] sm:bg-[--var(foreground)] border-[var(--error-color)] sm:text-[var(--error-color)] sm:hover:text-[var(--foreground)] sm:hover:bg-[var(--error-color)]",
+      "text-[var(--background)] bg-[var(--error-color)] sm:bg-[--var(background)] border-[var(--error-color)] sm:text-[var(--error-color)] sm:hover:text-[var(--background)] sm:hover:bg-[var(--error-color)]",
   };
 
   return (
