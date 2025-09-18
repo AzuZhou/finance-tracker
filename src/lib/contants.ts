@@ -11,8 +11,8 @@ const CATEGORIES = {
     "Travel",
     "Investments",
     "Home",
-    "Other",
-  ],
+    "Other"
+  ]
 };
 
 export { CATEGORIES };

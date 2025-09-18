@@ -14,7 +14,7 @@ import { useTransactions } from "@/contexts/TransactionsContext";
 
 const AddTransactionForm = ({
   onClose,
-  type,
+  type
 }: {
   onClose: () => void;
   type: "income" | "expense";
@@ -38,7 +38,7 @@ const AddTransactionForm = ({
       type,
       category,
       id: faker.string.uuid(),
-      date: new Date().toISOString().slice(0, 16),
+      date: new Date().toISOString().slice(0, 16)
     });
 
     onClose();

@@ -18,7 +18,7 @@ export const generateTransactions = (count: number = 200): Transaction[] => {
       description: faker.lorem.sentence(),
       amount,
       category,
-      type,
+      type
     };
   });
 };

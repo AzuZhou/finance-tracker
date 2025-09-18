@@ -18,7 +18,7 @@ const Button = ({
     primary:
       "text-[var(--background)] bg-[var(--primary-color)] sm:bg-[--var(background)] border-[var(--primary-color)] sm:text-[var(--primary-color)] sm:hover:text-[var(--background)] sm:hover:bg-[var(--primary-color)]",
     secondary:
-      "text-[var(--background)] bg-[var(--error-color)] sm:bg-[--var(background)] border-[var(--error-color)] sm:text-[var(--error-color)] sm:hover:text-[var(--background)] sm:hover:bg-[var(--error-color)]",
+      "text-[var(--background)] bg-[var(--error-color)] sm:bg-[--var(background)] border-[var(--error-color)] sm:text-[var(--error-color)] sm:hover:text-[var(--background)] sm:hover:bg-[var(--error-color)]"
   };
 
   return (

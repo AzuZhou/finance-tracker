@@ -10,9 +10,7 @@ import TransactionCards from "./TransactionCards";
 
 const Transactions = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [transactionType, setTransactionType] = useState<"income" | "expense">(
-    "expense",
-  );
+  const [transactionType, setTransactionType] = useState<"income" | "expense">("expense");
 
   const openModal = (type: "income" | "expense") => {
     setTransactionType(type);
@@ -24,24 +22,13 @@ const Transactions = () => {
       <TransactionCards />
 
       <div className="fixed bottom-4 flex gap-4">
-        <FloatingButton
-          handleClick={() => openModal("income")}
-          label="Income"
-          icon={PlusIcon}
-        />
+        <FloatingButton handleClick={() => openModal("income")} label="Income" icon={PlusIcon} />
 
-        <FloatingButton
-          handleClick={() => openModal("expense")}
-          label="Expense"
-          icon={MinusIcon}
-        />
+        <FloatingButton handleClick={() => openModal("expense")} label="Expense" icon={MinusIcon} />
       </div>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <AddTransactionForm
-          onClose={() => setIsModalOpen(false)}
-          type={transactionType}
-        />
+        <AddTransactionForm onClose={() => setIsModalOpen(false)} type={transactionType} />
       </Modal>
     </>
   );

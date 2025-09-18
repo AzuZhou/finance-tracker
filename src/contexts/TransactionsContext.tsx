@@ -10,9 +10,7 @@ type TransactionsContextType = {
   addTransaction: (transaction: Transaction) => void;
 };
 
-const TransactionsContext = createContext<TransactionsContextType | undefined>(
-  undefined,
-);
+const TransactionsContext = createContext<TransactionsContextType | undefined>(undefined);
 
 const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -25,10 +23,7 @@ const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
     } else {
       const generatedTransactions = generateTransactions();
       setTransactions(generatedTransactions);
-      localStorage.setItem(
-        "transactions",
-        JSON.stringify(generatedTransactions),
-      );
+      localStorage.setItem("transactions", JSON.stringify(generatedTransactions));
     }
   }, []);
 
@@ -54,8 +49,7 @@ const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
 const useTransactions = () => {
   const context = useContext(TransactionsContext);
 
-  if (!context)
-    throw new Error("useTransactions must be used inside TransactionsProvider");
+  if (!context) throw new Error("useTransactions must be used inside TransactionsProvider");
 
   return context;
 };

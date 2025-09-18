@@ -2,7 +2,7 @@ const options: Intl.DateTimeFormatOptions = {
   weekday: undefined,
   year: "numeric",
   month: "short",
-  day: "numeric",
+  day: "numeric"
 };
 
 export const getDateLabel = (date: string) => {

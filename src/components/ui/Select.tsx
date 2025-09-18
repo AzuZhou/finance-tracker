@@ -4,7 +4,7 @@ import {
   Listbox,
   ListboxButton,
   ListboxOption,
-  ListboxOptions,
+  ListboxOptions
 } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
@@ -17,14 +17,7 @@ type SelectProps = {
   options: string[];
 };
 
-const Select = ({
-  label,
-  name,
-  setValue,
-  value,
-  defaultOption,
-  options,
-}: SelectProps) => {
+const Select = ({ label, name, setValue, value, defaultOption, options }: SelectProps) => {
   return (
     <Field className="flex flex-col gap-2">
       <Label className="text-xs text-[var(--primary-color)]">{label}</Label>

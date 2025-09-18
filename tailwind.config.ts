@@ -4,17 +4,17 @@ const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
     extend: {
       colors: {},
       fontFamily: {
-        sans: ["var(--font-roboto-sans)", "Arial", "Helvetica", "sans-serif"],
-      },
-    },
+        sans: ["var(--font-roboto-sans)", "Arial", "Helvetica", "sans-serif"]
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 };
 
 export default config;

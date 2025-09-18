@@ -10,9 +10,7 @@ import { getDateLabel } from "@/lib/getDateLabel";
 const TransactionCards = () => {
   const { transactions } = useTransactions();
 
-  const sortedTransactions = [...transactions].sort((a, b) =>
-    b.date.localeCompare(a.date),
-  );
+  const sortedTransactions = [...transactions].sort((a, b) => b.date.localeCompare(a.date));
 
   const groupedTransactions = sortedTransactions.reduce(
     (acc, transaction) => {
@@ -20,7 +18,7 @@ const TransactionCards = () => {
       return { ...acc, [dateKey]: [...(acc[dateKey] || []), transaction] };
     },
 
-    {} as Record<string, Transaction[]>,
+    {} as Record<string, Transaction[]>
   );
 
   return (
@@ -28,16 +26,11 @@ const TransactionCards = () => {
       {Object.keys(groupedTransactions).map((date) => {
         return (
           <div key={date}>
-            <h2 className="mx-2 mb-1 text-sm font-bold">
-              {getDateLabel(date)}
-            </h2>
+            <h2 className="mx-2 mb-1 text-sm font-bold">{getDateLabel(date)}</h2>
 
             <ul className="flex flex-col divide-y divide-[var(--secondary-color)]">
               {groupedTransactions[date].map((transaction) => (
-                <TransactionCard
-                  key={transaction.id}
-                  transaction={transaction}
-                />
+                <TransactionCard key={transaction.id} transaction={transaction} />
               ))}
             </ul>
           </div>

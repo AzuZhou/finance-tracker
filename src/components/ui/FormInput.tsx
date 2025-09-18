@@ -19,7 +19,7 @@ const FormInput = ({
   label,
   validate,
   maxLength,
-  error,
+  error
 }: FormInputType) => {
   const handleChage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -45,9 +45,7 @@ const FormInput = ({
         value={value}
         onChange={handleChage}
       />
-      {error && (
-        <span className="text-xs text-[var(--error-color)]">{error}</span>
-      )}
+      {error && <span className="text-xs text-[var(--error-color)]">{error}</span>}
     </div>
   );
 };

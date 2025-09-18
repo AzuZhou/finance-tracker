@@ -6,11 +6,7 @@ export type FloatingButtonProps = {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 };
 
-const FloatingButton = ({
-  handleClick,
-  label,
-  icon: Icon,
-}: FloatingButtonProps) => {
+const FloatingButton = ({ handleClick, label, icon: Icon }: FloatingButtonProps) => {
   return (
     <button
       onClick={handleClick}
