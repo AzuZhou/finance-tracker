@@ -5,7 +5,7 @@ import TransactionCard from "./TransactionCard";
 import { useTransactions } from "@/contexts/TransactionsContext";
 
 import { Transaction } from "@/lib/types";
-import { getDateLabel } from "@/lib/getDateLabel";
+import { getDateLabel } from "@/lib/utils/getDateLabel";
 
 const TransactionCards = () => {
   const { transactions } = useTransactions();
