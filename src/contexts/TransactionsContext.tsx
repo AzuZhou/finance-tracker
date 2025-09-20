@@ -16,19 +16,21 @@ const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("transactions");
+    const storedTransactions = localStorage.getItem("transactions");
 
-    if (saved) {
-      setTransactions(JSON.parse(saved));
-    } else {
+    if (!storedTransactions) {
       const generatedTransactions = generateTransactions();
       setTransactions(generatedTransactions);
       localStorage.setItem("transactions", JSON.stringify(generatedTransactions));
+    } else {
+      setTransactions(JSON.parse(storedTransactions));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("transactions", JSON.stringify(transactions));
+    if (transactions?.length > 0) {
+      localStorage.setItem("transactions", JSON.stringify(transactions));
+    }
   }, [transactions]);
 
   const addTransaction = (transaction: Transaction) => {

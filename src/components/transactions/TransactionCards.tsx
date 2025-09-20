@@ -10,9 +10,7 @@ import { getDateLabel } from "@/lib/utils/getDateLabel";
 const TransactionCards = () => {
   const { transactions } = useTransactions();
 
-  const sortedTransactions = [...transactions].sort((a, b) => b.date.localeCompare(a.date));
-
-  const groupedTransactions = sortedTransactions.reduce(
+  const groupedTransactions = transactions.reduce(
     (acc, transaction) => {
       const dateKey = transaction.date.split("T")[0];
       return { ...acc, [dateKey]: [...(acc[dateKey] || []), transaction] };

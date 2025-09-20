@@ -3,7 +3,7 @@ import { Transaction } from "../types";
 import { CATEGORIES } from "../contants";
 
 export const generateTransactions = (count: number = 200): Transaction[] => {
-  return Array.from({ length: count }, () => {
+  const generatedTransactions = Array.from({ length: count }, () => {
     const type = faker.helpers.arrayElement(["income", "expense"] as const);
     const category = faker.helpers.arrayElement(CATEGORIES[type]);
 
@@ -21,4 +21,10 @@ export const generateTransactions = (count: number = 200): Transaction[] => {
       type
     };
   });
+
+  const sortedTransactions = [...generatedTransactions].sort((a, b) =>
+    b.date.localeCompare(a.date)
+  );
+
+  return sortedTransactions;
 };
