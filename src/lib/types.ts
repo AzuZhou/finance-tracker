@@ -1,5 +1,10 @@
 export type TransactionType = "income" | "expense";
 
+export type DateRangeType = {
+  from: Date | null;
+  to: Date | null;
+};
+
 export type Transaction = {
   id: string;
   description: string;
@@ -12,9 +17,6 @@ export type Transaction = {
 export type TransactionFilters = {
   description?: string;
   type?: TransactionType;
-  dateRange?: {
-    from: Date;
-    to: Date;
-  };
+  dateRange?: DateRangeType;
   category?: string;
 };

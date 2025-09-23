@@ -5,10 +5,11 @@ type FormInputType = {
   value: string;
   placeholder: string;
   label: string;
-  setValue: (val: string) => void;
-  validate?: (val: string) => boolean;
+  setValue: (value: string) => void;
+  validate?: (value: string) => boolean;
   maxLength?: number;
   error?: string;
+  type?: string;
 };
 
 const FormInput = ({
@@ -19,7 +20,8 @@ const FormInput = ({
   label,
   validate,
   maxLength,
-  error
+  error,
+  type = "text"
 }: FormInputType) => {
   const handleChage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -38,7 +40,7 @@ const FormInput = ({
       </label>
       <input
         className="border-b-1 border-[var(--secondary-color)] px-1.5 text-sm placeholder:text-[var(--text-muted)]"
-        type="text"
+        type={type}
         id={name}
         name={name}
         placeholder={placeholder}

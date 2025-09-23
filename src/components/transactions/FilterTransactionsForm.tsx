@@ -4,7 +4,8 @@ import { useState } from "react";
 import FormInput from "@/components/ui/FormInput";
 import Form from "@/components/ui/Form";
 import Select from "@/components/ui/Select";
-import { TransactionFilters } from "@/lib/types";
+import DatePicker from "@/components/ui/DatePicker";
+import { TransactionFilters, DateRangeType } from "@/lib/types";
 import { CATEGORIES } from "@/lib/contants";
 
 const FilterTransactionsForm = ({
@@ -17,10 +18,15 @@ const FilterTransactionsForm = ({
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
 
+  const [dateRange, setDateRange] = useState<DateRangeType>({
+    from: null,
+    to: null
+  });
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setFilters({ description, category });
+    setFilters({ description, category, dateRange });
   };
 
   return (
@@ -43,6 +49,8 @@ const FilterTransactionsForm = ({
         defaultOption="Select a category"
         options={CATEGORIES["expense"]}
       />
+
+      <DatePicker range={dateRange} onRangeChange={setDateRange} />
     </Form>
   );
 };
