@@ -35,13 +35,13 @@ const FormInput = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={name} className="text-xs text-[var(--primary-color)]">
+      <label htmlFor={`${name}-input`} className="text-xs text-[var(--primary-color)]">
         {label}
       </label>
       <input
         className="border-b-1 border-[var(--secondary-color)] px-1.5 text-sm placeholder:text-[var(--text-muted)]"
         type={type}
-        id={name}
+        id={`${name}-input`}
         name={name}
         placeholder={placeholder}
         value={value}

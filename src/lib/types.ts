@@ -1,4 +1,4 @@
-export type TransactionType = "income" | "expense";
+export type TransactionType = "income" | "expense" | null;
 
 export type DateRangeType = {
   from: Date | null;

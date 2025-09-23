@@ -5,7 +5,8 @@ import FormInput from "@/components/ui/FormInput";
 import Form from "@/components/ui/Form";
 import Select from "@/components/ui/Select";
 import DatePicker from "@/components/ui/DatePicker";
-import { TransactionFilters, DateRangeType } from "@/lib/types";
+import Radio from "@/components/ui/Radio";
+import { TransactionFilters, DateRangeType, TransactionType } from "@/lib/types";
 import { CATEGORIES } from "@/lib/contants";
 
 const FilterTransactionsForm = ({
@@ -17,7 +18,7 @@ const FilterTransactionsForm = ({
 }) => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-
+  const [type, setType] = useState<TransactionType | null>(null);
   const [dateRange, setDateRange] = useState<DateRangeType>({
     from: null,
     to: null
@@ -26,7 +27,7 @@ const FilterTransactionsForm = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setFilters({ description, category, dateRange });
+    setFilters({ description, category, dateRange, type });
   };
 
   return (
@@ -48,6 +49,14 @@ const FilterTransactionsForm = ({
         setValue={setCategory}
         defaultOption="Select a category"
         options={CATEGORIES["expense"]}
+      />
+
+      <Radio
+        options={["expense", "income"]}
+        setSelected={setType}
+        selected={type}
+        name="type"
+        label="Transaction type"
       />
 
       <DatePicker range={dateRange} onRangeChange={setDateRange} />

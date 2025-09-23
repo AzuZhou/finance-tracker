@@ -1,3 +1,5 @@
+"use client";
+
 import { DateRangeType } from "@/lib/types";
 
 const DatePicker = ({
@@ -33,29 +35,29 @@ const DatePicker = ({
   return (
     <div className="flex gap-4">
       <div className="flex flex-1 flex-col gap-2">
-        <label htmlFor="from-date" className="text-xs text-[var(--primary-color)]">
+        <label htmlFor="from-date-input" className="text-xs text-[var(--primary-color)]">
           From
         </label>
 
         <input
           type="date"
-          className="border-b-1 border-[var(--secondary-color)] px-1.5 text-sm placeholder:text-[var(--text-muted)]"
+          className={`border-b-1 border-[var(--secondary-color)] px-1.5 text-sm ${range?.from === null ? "text-[var(--text-muted)]" : ""}`}
           name="from-date"
-          id="from-date"
+          id="from-date-input"
           value={range.from?.toISOString().split("T")[0] ?? ""}
           onChange={handleFromChange}
         />
       </div>
 
       <div className="flex flex-1 flex-col gap-2">
-        <label htmlFor="to-date" className="text-xs text-[var(--primary-color)]">
+        <label htmlFor="to-date-input" className="text-xs text-[var(--primary-color)]">
           To
         </label>
         <input
           type="date"
-          className="border-b-1 border-[var(--secondary-color)] px-1.5 text-sm placeholder:text-[var(--text-muted)]"
+          className={`border-b-1 border-[var(--secondary-color)] px-1.5 text-sm ${range?.to === null ? "text-[var(--text-muted)]" : ""}`}
           name="to-date"
-          id="to-date"
+          id="to-date-input"
           value={range.to?.toISOString().split("T")[0] ?? ""}
           onChange={handleToChange}
         />

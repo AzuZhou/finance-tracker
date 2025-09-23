@@ -1,3 +1,4 @@
+"use client";
 import {
   Field,
   Label,
@@ -11,7 +12,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 type SelectProps = {
   label: string;
   name: string;
-  setValue: (val: string) => void;
+  setValue: (value: string) => void;
   defaultOption: string;
   value: string;
   options: string[];
@@ -36,7 +37,7 @@ const Select = ({ label, name, setValue, value, defaultOption, options }: Select
         <ListboxOptions
           anchor="bottom"
           transition
-          className="min-w-60 divide-y divide-[var(--secondary-color)] rounded-sm border border-[var(--foreground)] bg-[var(--foreground)] px-2"
+          className="min-w-60 divide-y divide-[var(--secondary-color)] rounded-b-sm border border-[var(--foreground)] bg-[var(--foreground)] px-2"
         >
           {options.map((option) => (
             <ListboxOption
