@@ -1,36 +1,75 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 
+import { useTransactions } from "@/contexts/TransactionsContext";
 import FloatingButton from "../ui/FloatingButton";
 import Modal from "../ui/Modal";
 import AddTransactionForm from "./AddTransactionForm";
 import TransactionCards from "./TransactionCards";
+import FiltersButton from "./FiltersButton";
+import FilteredTransactions from "./FilteredTransactions";
+import { TransactionType } from "@/lib/types";
 
 const Transactions = () => {
+  const { transactions } = useTransactions();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [transactionType, setTransactionType] = useState<"income" | "expense">("expense");
+  const [transactionType, setTransactionType] = useState<TransactionType | null>(null);
 
-  const openModal = (type: "income" | "expense") => {
-    setTransactionType(type);
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
+  const handleTransaction = (transactionType: TransactionType) => {
+    setTransactionType(transactionType);
+  };
+
+  const closeModal = () => {
+    setTransactionType(null);
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (transactionType) openModal();
+  }, [transactionType]);
+
   return (
-    <>
-      <TransactionCards />
+    <div className="w-full sm:max-w-3xl">
+      <FiltersButton handleClick={openModal} />
 
-      <div className="fixed bottom-4 flex gap-4">
-        <FloatingButton handleClick={() => openModal("income")} label="Income" icon={PlusIcon} />
+      {!transactionType && (
+        <Modal isOpen={isModalOpen} onClose={closeModal} title="Filter transactions">
+          <FilteredTransactions transactions={transactions} onClose={closeModal} />
+        </Modal>
+      )}
 
-        <FloatingButton handleClick={() => openModal("expense")} label="Expense" icon={MinusIcon} />
+      <TransactionCards transactions={transactions} />
+
+      <div className="fixed right-0 bottom-4 left-0 flex justify-center gap-4">
+        <FloatingButton
+          handleClick={() => handleTransaction("income")}
+          label="Income"
+          icon={PlusIcon}
+        />
+
+        <FloatingButton
+          handleClick={() => handleTransaction("expense")}
+          label="Expense"
+          icon={MinusIcon}
+        />
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <AddTransactionForm onClose={() => setIsModalOpen(false)} type={transactionType} />
-      </Modal>
-    </>
+      {transactionType && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          title={transactionType === "income" ? "Add Income" : "Add Expense"}
+        >
+          <AddTransactionForm onClose={closeModal} type={transactionType} />
+        </Modal>
+      )}
+    </div>
   );
 };
 

@@ -1,17 +1,31 @@
 "use client";
 
+import Button from "@/components/ui/Button";
+
 export type FormProps = {
   children: React.ReactNode;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  title?: string;
+  onClose: () => void;
+  submitLabel?: string;
+  cancelLabel?: string;
 };
 
-const Form = ({ children, onSubmit, title }: FormProps) => {
+const Form = ({
+  children,
+  onSubmit,
+  onClose,
+  submitLabel = "Accept",
+  cancelLabel = "Cancel"
+}: FormProps) => {
   return (
-    <form onSubmit={onSubmit} className="my-10 flex flex-col gap-4">
-      {title && <h2 className="font-center mb-4 text-lg font-medium">{title}</h2>}
-
+    <form onSubmit={onSubmit} className="flex flex-col gap-4">
       {children}
+      <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
+        <Button type="submit">{submitLabel}</Button>
+        <Button type="button" variant="secondary" onClick={onClose}>
+          {cancelLabel}
+        </Button>
+      </div>
     </form>
   );
 };

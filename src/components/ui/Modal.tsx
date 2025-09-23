@@ -2,14 +2,16 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  title?: string;
 };
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -17,12 +19,22 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 
         <div className="fixed inset-0 flex items-center justify-center">
           <div
-            className="h-full w-full transform bg-[var(--background)] px-6 shadow-lg transition-all duration-300 ease-out sm:h-auto sm:max-w-md sm:rounded-lg sm:px-8"
+            className="flex h-full w-full transform flex-col overflow-y-auto bg-[var(--background)] px-6 py-8 shadow-lg transition-all duration-300 ease-out sm:h-auto sm:max-h-5/6 sm:max-w-md sm:rounded-lg sm:px-6"
             style={{
               opacity: isOpen ? 1 : 0,
               scale: isOpen ? 1 : 0.95
             }}
           >
+            <div
+              className={`flex items-center ${title ? "mb-6 justify-between" : "mb-4 justify-end"}`}
+            >
+              {title && <h2 className="font-center text-lg font-medium">{title}</h2>}
+
+              <button type="button" onClick={onClose} className="cursor-pointer">
+                <XCircleIcon className="h-5 w-5 rounded-full bg-[var(--primary-color)] text-[var(--background)]" />
+              </button>
+            </div>
+
             {children}
           </div>
         </div>

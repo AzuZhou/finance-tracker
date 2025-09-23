@@ -8,24 +8,16 @@ import { CATEGORIES } from "@/lib/contants";
 import Form from "@/components/ui/Form";
 import Select from "@/components/ui/Select";
 import FormInput from "@/components/ui/FormInput";
-import Button from "@/components/ui/Button";
 
 import { useTransactions } from "@/contexts/TransactionsContext";
+import { TransactionType } from "@/lib/types";
 
-const AddTransactionForm = ({
-  onClose,
-  type
-}: {
-  onClose: () => void;
-  type: "income" | "expense";
-}) => {
+const AddTransactionForm = ({ onClose, type }: { onClose: () => void; type: TransactionType }) => {
   const { addTransaction } = useTransactions();
 
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
-
-  const title = type === "income" ? "Add Income" : "Add Expense";
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,7 +37,12 @@ const AddTransactionForm = ({
   };
 
   return (
-    <Form onSubmit={handleSubmit} title={title}>
+    <Form
+      onSubmit={handleSubmit}
+      onClose={onClose}
+      submitLabel={`Create new ${type}`}
+      cancelLabel="Cancel transaction"
+    >
       <FormInput
         label="Description"
         name="description"
@@ -73,13 +70,6 @@ const AddTransactionForm = ({
         defaultOption="Select a category"
         options={CATEGORIES[type]}
       />
-
-      <div className="mt-6 flex flex-col gap-4 sm:mt-8 sm:flex-row sm:justify-center sm:gap-6">
-        <Button type="submit">Add</Button>
-        <Button type="button" variant="secondary" onClick={onClose}>
-          Cancel
-        </Button>
-      </div>
     </Form>
   );
 };
