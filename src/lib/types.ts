@@ -1,8 +1,8 @@
 export type TransactionType = "income" | "expense";
 
 export type DateRangeType = {
-  from: Date | null;
-  to: Date | null;
+  from?: Date | null;
+  to?: Date | null;
 };
 
 export type Transaction = {

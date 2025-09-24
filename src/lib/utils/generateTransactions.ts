@@ -22,9 +22,5 @@ export const generateTransactions = (count: number = 200): Transaction[] => {
     };
   });
 
-  const sortedTransactions = [...generatedTransactions].sort((a, b) =>
-    b.date.localeCompare(a.date)
-  );
-
-  return sortedTransactions;
+  return generatedTransactions;
 };

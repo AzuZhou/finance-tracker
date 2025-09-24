@@ -2,6 +2,17 @@
 
 import { DateRangeType } from "@/lib/types";
 
+const formatDateForInput = (date: Date) => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+const parseLocalDate = (value: string) => {
+  const [y, m, d] = value.split("-").map(Number);
+  return new Date(y, m - 1, d);
+};
+
 const DatePicker = ({
   range,
   onRangeChange
@@ -9,25 +20,30 @@ const DatePicker = ({
   range: DateRangeType;
   onRangeChange: (value: DateRangeType) => void;
 }) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const today = parseLocalDate(formatDateForInput(new Date()));
 
   const handleFromChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const newFrom = new Date(value);
+
+    if (!value) return onRangeChange({ ...range, from: null });
+
+    const newFrom = parseLocalDate(value);
 
     if (range?.to && newFrom > range.to) return;
-    if (newFrom > new Date()) return;
+    if (newFrom > today) return;
 
     onRangeChange({ ...range, from: newFrom });
   };
 
   const handleToChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const newTo = new Date(value);
+
+    if (!value) return onRangeChange({ ...range, to: null });
+
+    const newTo = parseLocalDate(value);
 
     if (range?.from && newTo < range.from) return;
-    if (newTo > new Date()) return;
+    if (newTo > today) return;
 
     onRangeChange({ ...range, to: newTo });
   };
@@ -44,7 +60,7 @@ const DatePicker = ({
           className={`border-b-1 border-[var(--secondary-color)] px-1.5 text-sm ${range?.from === null ? "text-[var(--text-muted)]" : ""}`}
           name="from-date"
           id="from-date-input"
-          value={range.from?.toISOString().split("T")[0] ?? ""}
+          value={range.from ? formatDateForInput(range.from) : ""}
           onChange={handleFromChange}
         />
       </div>
@@ -58,7 +74,7 @@ const DatePicker = ({
           className={`border-b-1 border-[var(--secondary-color)] px-1.5 text-sm ${range?.to === null ? "text-[var(--text-muted)]" : ""}`}
           name="to-date"
           id="to-date-input"
-          value={range.to?.toISOString().split("T")[0] ?? ""}
+          value={range.to ? formatDateForInput(range.to) : ""}
           onChange={handleToChange}
         />
       </div>

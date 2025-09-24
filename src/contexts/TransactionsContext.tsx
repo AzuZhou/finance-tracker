@@ -10,7 +10,11 @@ type TransactionsContextType = {
   addTransaction: (transaction: Transaction) => void;
 };
 
-const TransactionsContext = createContext<TransactionsContextType | undefined>(undefined);
+const TransactionsContext = createContext<TransactionsContextType | null>(null);
+
+const getSortedTransactions = (transactions: Transaction[]) => {
+  return [...transactions].sort((a, b) => b.date.localeCompare(a.date));
+};
 
 const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -20,25 +24,22 @@ const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (!storedTransactions) {
       const generatedTransactions = generateTransactions();
-      setTransactions(generatedTransactions);
-      localStorage.setItem("transactions", JSON.stringify(generatedTransactions));
+      const sortedTransactions = getSortedTransactions(generatedTransactions);
+      setTransactions(sortedTransactions);
     } else {
       setTransactions(JSON.parse(storedTransactions));
     }
   }, []);
 
   useEffect(() => {
-    if (transactions?.length > 0) {
+    // if initial fetching returns empty tranasactions or storage has been cleared
+    if (transactions.length > 0) {
       localStorage.setItem("transactions", JSON.stringify(transactions));
     }
   }, [transactions]);
 
   const addTransaction = (transaction: Transaction) => {
-    setTransactions((prev) => {
-      const updated = [...prev, transaction];
-      localStorage.setItem("transactions", JSON.stringify(updated));
-      return updated;
-    });
+    setTransactions((prev) => getSortedTransactions([...prev, transaction]));
   };
 
   return (

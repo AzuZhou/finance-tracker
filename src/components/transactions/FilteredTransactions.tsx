@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import FilterTransactionsForm from "./FilterTransactionsForm";
 import { Transaction, TransactionFilters } from "@/lib/types";
 import TransactionCards from "./TransactionCards";
+import getNormalizedDateRange from "@/lib/utils/getNormalizedDateRange";
 
 const FilteredTransactions = ({
   transactions,
@@ -16,6 +17,8 @@ const FilteredTransactions = ({
   const [filters, setFilters] = useState<TransactionFilters>({});
 
   const filteredTransactions = useMemo(() => {
+    const { from, to } = getNormalizedDateRange(filters.dateRange ?? {});
+
     return transactions.filter((transaction) => {
       const matchesDescription =
         !filters.description ||
@@ -24,9 +27,7 @@ const FilteredTransactions = ({
       const matchesCategory = !filters.category || transaction.category === filters.category;
 
       const transactionDate = new Date(transaction.date);
-      const matchesDateRange =
-        (!filters.dateRange?.from || transactionDate >= filters.dateRange.from) &&
-        (!filters.dateRange?.to || transactionDate <= filters.dateRange.to);
+      const matchesDateRange = (!from || transactionDate >= from) && (!to || transactionDate <= to);
 
       const matchesType = !filters.type || filters.type === transaction.type;
 
