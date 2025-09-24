@@ -42,6 +42,14 @@ const FilterTransactionsForm = ({
         validate={(value) => /^[a-zA-Z0-9\s.,!?'-]*$/.test(value)}
       />
 
+      <Radio
+        options={["expense", "income"]}
+        setSelected={setType}
+        selected={type}
+        name="type"
+        label="Transaction type"
+      />
+
       <Select
         label="Category"
         name="category"
@@ -49,14 +57,6 @@ const FilterTransactionsForm = ({
         setValue={setCategory}
         defaultOption="Select a category"
         options={CATEGORIES["expense"]}
-      />
-
-      <Radio
-        options={["expense", "income"]}
-        setSelected={setType}
-        selected={type}
-        name="type"
-        label="Transaction type"
       />
 
       <DatePicker range={dateRange} onRangeChange={setDateRange} />
