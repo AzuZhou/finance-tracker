@@ -2,6 +2,8 @@ import { faker } from "@faker-js/faker";
 import { Transaction, TransactionType } from "../types";
 import { CATEGORIES } from "../contants";
 
+import calculateBalance from "./calculateBalance";
+
 import canCreateTransaction from "./canCreateTransaction";
 
 const generateMockTransaction = () => {
@@ -39,8 +41,9 @@ const generateTransactions = (count: number = 200): Transaction[] => {
 
   for (let i = 1; i < count; i++) {
     const newTransaction = generateMockTransaction();
+    const currentBalance = calculateBalance(initialTransactions);
 
-    if (canCreateTransaction(newTransaction, initialTransactions)) {
+    if (canCreateTransaction(newTransaction, currentBalance)) {
       initialTransactions.push(newTransaction);
     } else {
       initialTransactions.push({

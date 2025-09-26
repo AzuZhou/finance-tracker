@@ -6,14 +6,15 @@ import { faker } from "@faker-js/faker";
 import Form from "@/components/ui/Form";
 import Select from "@/components/ui/Select";
 import FormInput from "@/components/ui/FormInput";
-
 import { useTransactions } from "@/contexts/TransactionsContext";
 import { TransactionType, CategoryType } from "@/lib/types";
 import { CATEGORIES } from "@/lib/contants";
 import getOptions from "@/lib/utils/getOptions";
+import canCreateTransaction from "@/lib/utils/canCreateTransaction";
+import calculateBalance from "@/lib/utils/calculateBalance";
 
 const AddTransactionForm = ({ onClose, type }: { onClose: () => void; type: TransactionType }) => {
-  const { addTransaction } = useTransactions();
+  const { transactions, addTransaction } = useTransactions();
 
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
@@ -24,14 +25,19 @@ const AddTransactionForm = ({ onClose, type }: { onClose: () => void; type: Tran
 
     if (!amount || !description || !category) return;
 
-    addTransaction({
+    const newTransaction = {
       description,
       amount: type === "expense" ? -parseFloat(amount) : +parseFloat(amount),
       type,
       category,
       id: faker.string.uuid(),
       date: new Date().toISOString().slice(0, 16)
-    });
+    };
+    const currentBalance = calculateBalance(transactions);
+
+    if (canCreateTransaction(newTransaction, currentBalance)) {
+      addTransaction(newTransaction);
+    }
 
     onClose();
   };

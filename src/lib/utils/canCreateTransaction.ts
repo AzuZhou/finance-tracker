@@ -6,9 +6,7 @@ import {
 } from "../contants";
 import { Transaction } from "../types";
 
-import calculateBalance from "./calculateBalance";
-
-const canCreateTransaction = (transaction: Transaction, transactions: Transaction[]) => {
+const canCreateTransaction = (transaction: Transaction, currentBalance: number) => {
   const { amount, type } = transaction;
 
   const isValidSign = (type === "income" && amount >= 0) || (type === "expense" && amount <= 0);
@@ -16,7 +14,6 @@ const canCreateTransaction = (transaction: Transaction, transactions: Transactio
   const isValidAmount =
     Math.abs(amount) >= MINIMUM_TRANSACTION && Math.abs(amount) <= MAXIMUM_TRANSACTION_ABSOLUTE;
 
-  const currentBalance = calculateBalance(transactions);
   const newBalance = currentBalance + amount;
   const isValidBalance = newBalance >= MAXIMUM_NEGATIVE_BALANCE && newBalance <= MAXIMUM_BALANCE;
 

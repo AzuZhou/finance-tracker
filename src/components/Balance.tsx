@@ -1,12 +1,14 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { useTransactions } from "@/contexts/TransactionsContext";
 
 import calculateBalance from "@/lib/utils/calculateBalance";
 
 const Balance = () => {
   const { transactions } = useTransactions();
-  const balance = calculateBalance(transactions);
+  const balance = useMemo(() => calculateBalance(transactions), [transactions]);
 
   return (
     <div className="text-center">
