@@ -5,7 +5,7 @@ import { CATEGORIES } from "../contants";
 export const generateTransactions = (count: number = 200): Transaction[] => {
   const generatedTransactions = Array.from({ length: count }, () => {
     const type = faker.helpers.arrayElement(["income", "expense"] as const);
-    const category = faker.helpers.arrayElement(CATEGORIES[type]);
+    const category = faker.helpers.arrayElement(CATEGORIES[type].map((category) => category.value));
 
     const isExpense = faker.datatype.boolean(0.9);
     const amount = isExpense

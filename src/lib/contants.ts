@@ -1,17 +1,22 @@
 const CATEGORIES = {
-  income: ["Salary", "Professional services", "Other"],
+  income: [
+    { value: "salary", label: "Salary" },
+    { value: "professional_services", label: "Professional services" },
+    { value: "other_incomes", label: "Other incomes" }
+  ],
   expense: [
-    "Groceries",
-    "Rent and utilities",
-    "Healthcare",
-    "Sports",
-    "Education",
-    "Entertainment",
-    "Pets",
-    "Travel",
-    "Investments",
-    "Home",
-    "Other"
+    { value: "groceries", label: "Groceries" },
+    { value: "restaurants", label: "Restaurants" },
+    { value: "rent_and_utilities", label: "Rent and utilitie" },
+    { value: "healthcare", label: "Healthcare" },
+    { value: "sports", label: "Sports" },
+    { value: "education", label: "Education" },
+    { value: "entertainment", label: "Entertainment" },
+    { value: "pets", label: "Pets" },
+    { value: "travel_and_transportation", label: "Travel and transportation" },
+    { value: "investments", label: "Investments" },
+    { value: "home", label: "Home" },
+    { value: "other_expenses", label: "Other expense" }
   ]
 };
 

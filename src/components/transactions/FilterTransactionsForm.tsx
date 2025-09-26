@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormInput from "@/components/ui/FormInput";
 import Form from "@/components/ui/Form";
 import Select from "@/components/ui/Select";
 import DatePicker from "@/components/ui/DatePicker";
 import Radio from "@/components/ui/Radio";
-import { TransactionFilters, DateRangeType, TransactionType } from "@/lib/types";
+import { TransactionFilters, DateRangeType, TransactionType, CategoryType } from "@/lib/types";
 import { CATEGORIES } from "@/lib/contants";
+import getOptions from "@/lib/utils/getOptions";
 
 const FilterTransactionsForm = ({
   setFilters,
@@ -17,7 +18,7 @@ const FilterTransactionsForm = ({
   onClose: () => void;
 }) => {
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<CategoryType | null>(null);
   const [type, setType] = useState<TransactionType | null>(null);
   const [dateRange, setDateRange] = useState<DateRangeType>({
     from: null,
@@ -29,6 +30,10 @@ const FilterTransactionsForm = ({
 
     setFilters({ description, category, dateRange, type });
   };
+
+  useEffect(() => {
+    setCategory(null);
+  }, [type]);
 
   return (
     <Form onSubmit={handleSubmit} onClose={onClose} submitLabel="Filter">
@@ -51,12 +56,13 @@ const FilterTransactionsForm = ({
       />
 
       <Select
+        disabled={type === null}
         label="Category"
         name="category"
         value={category}
         setValue={setCategory}
         defaultOption="Select a category"
-        options={CATEGORIES["expense"]}
+        groupedOptions={getOptions(CATEGORIES, type)}
       />
 
       <DatePicker range={dateRange} onRangeChange={setDateRange} />

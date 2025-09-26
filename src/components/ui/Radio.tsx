@@ -10,8 +10,6 @@ type RadioType = {
   label: string;
 };
 
-//group flex size-5 items-center justify-center rounded-full border bg-white data-checked:bg-blue-400
-// invisible size-2 rounded-full bg-white group-data-checked:visible
 const Radio = ({ selected, options, setSelected, name, label }: RadioType) => {
   const allOptions = ["all", ...options];
 
@@ -25,7 +23,7 @@ const Radio = ({ selected, options, setSelected, name, label }: RadioType) => {
 
   return (
     <fieldset>
-      <legend className="mb-2 text-xs text-[var(--primary-color)]">{label}</legend>
+      <legend className="mb-2 cursor-default text-xs text-[var(--primary-color)]">{label}</legend>
       <div className="flex divide-x divide-[var(--secondary-color)] text-sm">
         {allOptions.map((option, index) => {
           const checked = (option === "all" && selected === null) || selected === option;

@@ -32,7 +32,6 @@ const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    // if initial fetching returns empty tranasactions or storage has been cleared
     if (transactions.length > 0) {
       localStorage.setItem("transactions", JSON.stringify(transactions));
     }

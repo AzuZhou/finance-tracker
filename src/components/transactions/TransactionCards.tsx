@@ -1,3 +1,5 @@
+"use client";
+
 import TransactionCard from "./TransactionCard";
 
 import { Transaction } from "@/lib/types";

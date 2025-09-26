@@ -3,21 +3,21 @@
 import { useState } from "react";
 import { faker } from "@faker-js/faker";
 
-import { CATEGORIES } from "@/lib/contants";
-
 import Form from "@/components/ui/Form";
 import Select from "@/components/ui/Select";
 import FormInput from "@/components/ui/FormInput";
 
 import { useTransactions } from "@/contexts/TransactionsContext";
-import { TransactionType } from "@/lib/types";
+import { TransactionType, CategoryType } from "@/lib/types";
+import { CATEGORIES } from "@/lib/contants";
+import getOptions from "@/lib/utils/getOptions";
 
 const AddTransactionForm = ({ onClose, type }: { onClose: () => void; type: TransactionType }) => {
   const { addTransaction } = useTransactions();
 
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<CategoryType | null>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,7 +68,8 @@ const AddTransactionForm = ({ onClose, type }: { onClose: () => void; type: Tran
         value={category}
         setValue={setCategory}
         defaultOption="Select a category"
-        options={CATEGORIES[type]}
+        groupedOptions={getOptions(CATEGORIES, type)}
+        isMandatory
       />
     </Form>
   );
