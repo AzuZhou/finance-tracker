@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 
-import { generateTransactions } from "@/lib/utils/generateTransactions";
+import generateTransactions from "@/lib/utils/generateTransactions";
 import { Transaction } from "@/lib/types";
 
 type TransactionsContextType = {

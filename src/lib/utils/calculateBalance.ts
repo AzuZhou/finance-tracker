@@ -1,7 +1,7 @@
 import { Transaction } from "../types";
 
 const calculateBalance = (transactions: Transaction[]) => {
-  if (!transactions.length) return null;
+  if (!transactions.length) return 0;
 
   if (transactions.length === 1) return transactions[0].amount;
 

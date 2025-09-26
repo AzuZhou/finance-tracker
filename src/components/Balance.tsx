@@ -11,7 +11,7 @@ const Balance = () => {
   return (
     <div className="text-center">
       <span className="text-xs">Total Balance</span>
-      {balance && <p className="text-2xl text-[var(--primary-color)]">{balance.toFixed(2)} €</p>}
+      <p className="text-2xl text-[var(--primary-color)]">{balance.toFixed(2)} €</p>
     </div>
   );
 };
