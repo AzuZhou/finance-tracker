@@ -1,4 +1,5 @@
 import { describe, test, expect } from "vitest";
+
 import canCreateTransaction from "./canCreateTransaction";
 import { Transaction } from "../types";
 

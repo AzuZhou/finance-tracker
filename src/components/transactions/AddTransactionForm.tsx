@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { faker } from "@faker-js/faker";
+import { useState } from "react";
 
 import Form from "@/components/ui/Form";
-import Select from "@/components/ui/Select";
 import FormInput from "@/components/ui/FormInput";
+import Select from "@/components/ui/Select";
 import { useTransactions } from "@/contexts/TransactionsContext";
-import { TransactionType, CategoryType } from "@/lib/types";
 import { CATEGORIES } from "@/lib/contants";
-import getOptions from "@/lib/utils/getOptions";
-import canCreateTransaction from "@/lib/utils/canCreateTransaction";
+import { TransactionType, CategoryType } from "@/lib/types";
 import calculateBalance from "@/lib/utils/calculateBalance";
+import canCreateTransaction from "@/lib/utils/canCreateTransaction";
+import getOptions from "@/lib/utils/getOptions";
 
 const AddTransactionForm = ({ onClose, type }: { onClose: () => void; type: TransactionType }) => {
   const { transactions, addTransaction } = useTransactions();

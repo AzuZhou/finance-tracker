@@ -2,10 +2,11 @@
 
 import { useMemo, useState } from "react";
 
-import FilterTransactionsForm from "./FilterTransactionsForm";
 import { Transaction, TransactionFilters } from "@/lib/types";
-import TransactionCards from "./TransactionCards";
 import getNormalizedDateRange from "@/lib/utils/getNormalizedDateRange";
+
+import FilterTransactionsForm from "./FilterTransactionsForm";
+import TransactionCards from "./TransactionCards";
 import Empty from "../ui/Empty";
 
 const FilteredTransactions = ({

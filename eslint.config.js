@@ -26,7 +26,20 @@ const eslintConfig = [
     },
     rules: {
       "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-eslint/explicit-function-return-type": "off"
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin", // Node.js built-ins like fs, path
+            "external", // npm packages
+            "internal", // your @/ aliases
+            ["parent", "sibling", "index"] // relative imports
+          ],
+          "newlines-between": "always",
+          alphabetize: { order: "asc", caseInsensitive: true }
+        }
+      ]
     }
   },
   {

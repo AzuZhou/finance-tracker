@@ -1,9 +1,9 @@
 "use client";
 
-import TransactionCard from "./TransactionCard";
-
 import { Transaction } from "@/lib/types";
 import { getDateLabel } from "@/lib/utils/getDateLabel";
+
+import TransactionCard from "./TransactionCard";
 
 const TransactionCards = ({ transactions }: { transactions: Transaction[] }) => {
   const groupedTransactions = transactions.reduce(

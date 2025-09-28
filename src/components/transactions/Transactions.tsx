@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
 
 import { useTransactions } from "@/contexts/TransactionsContext";
+import { TransactionType } from "@/lib/types";
+
+import AddTransactionForm from "./AddTransactionForm";
+import FilteredTransactions from "./FilteredTransactions";
+import FiltersButton from "./FiltersButton";
+import TransactionCards from "./TransactionCards";
+import Empty from "../ui/Empty";
 import FloatingButton from "../ui/FloatingButton";
 import Modal from "../ui/Modal";
-import AddTransactionForm from "./AddTransactionForm";
-import TransactionCards from "./TransactionCards";
-import FiltersButton from "./FiltersButton";
-import FilteredTransactions from "./FilteredTransactions";
-import { TransactionType } from "@/lib/types";
-import Empty from "../ui/Empty";
 
 const Transactions = () => {
   const { transactions } = useTransactions();

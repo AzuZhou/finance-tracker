@@ -3,7 +3,6 @@
 import { useMemo } from "react";
 
 import { useTransactions } from "@/contexts/TransactionsContext";
-
 import calculateBalance from "@/lib/utils/calculateBalance";
 
 const Balance = () => {

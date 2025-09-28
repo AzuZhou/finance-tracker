@@ -1,4 +1,5 @@
 import { describe, test, expect } from "vitest";
+
 import calculateBalance from "./calculateBalance";
 import { Transaction } from "../types";
 

@@ -1,9 +1,8 @@
 import { faker } from "@faker-js/faker";
-import { Transaction, TransactionType } from "../types";
+
 import { CATEGORIES } from "../contants";
-
+import { Transaction, TransactionType } from "../types";
 import calculateBalance from "./calculateBalance";
-
 import canCreateTransaction from "./canCreateTransaction";
 
 const generateMockTransaction = () => {

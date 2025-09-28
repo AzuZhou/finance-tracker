@@ -1,5 +1,5 @@
-import Transactions from "@/components/transactions/Transactions";
 import Balance from "@/components/Balance";
+import Transactions from "@/components/transactions/Transactions";
 
 export default function Home() {
   return (

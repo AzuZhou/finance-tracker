@@ -1,6 +1,5 @@
 "use client";
 
-import { GroupedOptions } from "@/lib/types";
 import {
   Field,
   Label,
@@ -10,6 +9,8 @@ import {
   ListboxOptions
 } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+
+import { GroupedOptions } from "@/lib/types";
 
 type SelectProps = {
   label: string;
