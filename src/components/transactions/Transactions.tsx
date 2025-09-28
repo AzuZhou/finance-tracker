@@ -11,6 +11,7 @@ import TransactionCards from "./TransactionCards";
 import FiltersButton from "./FiltersButton";
 import FilteredTransactions from "./FilteredTransactions";
 import { TransactionType } from "@/lib/types";
+import Empty from "../ui/Empty";
 
 const Transactions = () => {
   const { transactions } = useTransactions();
@@ -44,7 +45,14 @@ const Transactions = () => {
         </Modal>
       )}
 
-      <TransactionCards transactions={transactions} />
+      {transactions.length === 0 && (
+        <Empty
+          title="No transactions yet"
+          message="Add your first income or expense to get started."
+        />
+      )}
+
+      {transactions.length > 0 && <TransactionCards transactions={transactions} />}
 
       <div className="fixed right-0 bottom-4 left-0 flex justify-center gap-4">
         <FloatingButton

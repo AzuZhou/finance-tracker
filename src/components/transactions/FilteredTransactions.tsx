@@ -6,6 +6,7 @@ import FilterTransactionsForm from "./FilterTransactionsForm";
 import { Transaction, TransactionFilters } from "@/lib/types";
 import TransactionCards from "./TransactionCards";
 import getNormalizedDateRange from "@/lib/utils/getNormalizedDateRange";
+import Empty from "../ui/Empty";
 
 const FilteredTransactions = ({
   transactions,
@@ -38,6 +39,15 @@ const FilteredTransactions = ({
   return (
     <>
       <FilterTransactionsForm setFilters={setFilters} onClose={onClose} />
+
+      {Object.keys(filters).length > 0 && filteredTransactions.length === 0 && (
+        <Empty
+          title="No results found"
+          message="Try adjusting the filters."
+          marginTop="mt-12"
+          gap="gap-2"
+        />
+      )}
 
       <div className="mt-5 sm:overflow-y-auto">
         {Object.keys(filters).length > 0 && filteredTransactions.length > 0 && (
