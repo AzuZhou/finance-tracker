@@ -8,6 +8,7 @@ export type FormProps = {
   onClose: () => void;
   submitLabel?: string;
   cancelLabel?: string;
+  disabled?: boolean;
 };
 
 const Form = ({
@@ -15,13 +16,16 @@ const Form = ({
   onSubmit,
   onClose,
   submitLabel = "Accept",
-  cancelLabel = "Cancel"
+  cancelLabel = "Cancel",
+  disabled = false
 }: FormProps) => {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       {children}
       <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
-        <Button type="submit">{submitLabel}</Button>
+        <Button type="submit" disabled={disabled}>
+          {submitLabel}
+        </Button>
         <Button type="button" variant="secondary" onClick={onClose}>
           {cancelLabel}
         </Button>

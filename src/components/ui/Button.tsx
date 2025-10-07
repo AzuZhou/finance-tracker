@@ -24,7 +24,7 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`w-full cursor-pointer rounded-lg border py-3.5 text-sm font-medium sm:py-2 ${variantStyles[variant as ButtonVariant]} ${disabled ? "cursor-not-allowed" : ""}}`}
+      className={`w-full cursor-pointer rounded-lg border py-3.5 text-sm font-medium sm:py-2 ${variantStyles[variant as ButtonVariant]} ${disabled ? "cursor-not-allowed opacity-50" : ""}}`}
       disabled={disabled}
       {...props}
     >

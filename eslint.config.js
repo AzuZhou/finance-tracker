@@ -39,7 +39,8 @@ const eslintConfig = [
           "newlines-between": "always",
           alphabetize: { order: "asc", caseInsensitive: true }
         }
-      ]
+      ],
+      "no-duplicate-imports": "error"
     }
   },
   {

@@ -2,19 +2,19 @@
 
 type FormInputType = {
   name: string;
-  value: string;
+  value: string | null;
   placeholder: string;
   label: string;
-  setValue: (value: string) => void;
+  onChange: (value: string) => void;
   validate?: (value: string) => boolean;
   maxLength?: number;
-  error?: string;
+  error?: string | null;
   type?: string;
 };
 
 const FormInput = ({
   value,
-  setValue,
+  onChange,
   name,
   placeholder,
   label,
@@ -23,19 +23,18 @@ const FormInput = ({
   error,
   type = "text"
 }: FormInputType) => {
-  const handleChage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
     if (validate && !validate(value)) return;
-
     if (maxLength && value.length > maxLength) return;
 
-    setValue(value);
+    onChange(value);
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={`${name}-input`} className="text-xs text-[var(--primary-color)]">
+    <div className="flex flex-col">
+      <label htmlFor={`${name}-input`} className="mb-2 text-xs text-[var(--primary-color)]">
         {label}
       </label>
       <input
@@ -44,10 +43,13 @@ const FormInput = ({
         id={`${name}-input`}
         name={name}
         placeholder={placeholder}
-        value={value}
-        onChange={handleChage}
+        value={value === null ? "" : value}
+        onChange={handleChange}
       />
-      {error && <span className="text-xs text-[var(--error-color)]">{error}</span>}
+
+      {error !== undefined && (
+        <span className="mt-2 min-h-4 text-[10px] text-[var(--error-color)]">{error ?? ""}</span>
+      )}
     </div>
   );
 };

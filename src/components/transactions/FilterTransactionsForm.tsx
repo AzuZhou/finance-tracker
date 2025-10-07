@@ -11,6 +11,8 @@ import { CATEGORIES } from "@/lib/contants";
 import { TransactionFilters, DateRangeType, TransactionType, CategoryType } from "@/lib/types";
 import getOptions from "@/lib/utils/getOptions";
 
+const categoryDefault = { value: "default-category-option", label: "Select a category" };
+
 const FilterTransactionsForm = ({
   setFilters,
   onClose
@@ -19,7 +21,9 @@ const FilterTransactionsForm = ({
   onClose: () => void;
 }) => {
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState<CategoryType | null>(null);
+  const [category, setCategory] = useState<CategoryType | typeof categoryDefault.value>(
+    categoryDefault.value
+  );
   const [type, setType] = useState<TransactionType | null>(null);
   const [dateRange, setDateRange] = useState<DateRangeType>({
     from: null,
@@ -33,7 +37,7 @@ const FilterTransactionsForm = ({
   };
 
   useEffect(() => {
-    setCategory(null);
+    setCategory(categoryDefault.value);
   }, [type]);
 
   return (
@@ -44,7 +48,7 @@ const FilterTransactionsForm = ({
         value={description}
         placeholder="Describe your transaction"
         maxLength={30}
-        setValue={setDescription}
+        onChange={setDescription}
         validate={(value) => /^[a-zA-Z0-9\s.,!?'-]*$/.test(value)}
       />
 
@@ -61,8 +65,9 @@ const FilterTransactionsForm = ({
         label="Category"
         name="category"
         value={category}
-        setValue={setCategory}
-        defaultOption="Select a category"
+        onChange={setCategory}
+        defaultLabel={categoryDefault.label}
+        defaultValue={categoryDefault.value}
         groupedOptions={getOptions(CATEGORIES, type)}
       />
 

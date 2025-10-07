@@ -31,3 +31,7 @@ export type TransactionFilters = {
   dateRange?: DateRangeType;
   category?: CategoryType | null;
 };
+
+export type InputField = { value: string; error: string | null };
+
+export type SelectField = { value: CategoryType | null; error: string | null };

@@ -10,90 +10,96 @@ import {
 } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-import { GroupedOptions } from "@/lib/types";
+import { CategoryType, GroupedOptions } from "@/lib/types";
 
 type SelectProps = {
   label: string;
   name: string;
-  setValue: (value: string | null) => void;
-  defaultOption: string;
-  value: string | null;
+  onChange: (value: CategoryType) => void;
+  defaultValue?: string;
+  defaultLabel?: string;
+  value: CategoryType;
   groupedOptions: GroupedOptions;
-  isMandatory?: boolean;
   disabled?: boolean;
+  error?: string | null;
 };
 
 const Select = ({
   label,
   name,
-  setValue,
+  onChange,
   value,
-  defaultOption,
+  defaultLabel = "Select an option",
+  defaultValue,
   groupedOptions,
-  isMandatory,
-  disabled
+  disabled,
+  error
 }: SelectProps) => {
   const selectedOptionLabel =
     groupedOptions.flatMap((group) => group.options).find((opt) => opt.value === value)?.label ??
-    defaultOption;
+    defaultLabel;
   const multipleOptionGroups = groupedOptions.length > 1;
 
   return (
-    <Field className="flex flex-col gap-2 data-disabled:opacity-50" disabled={disabled}>
-      <Label className="text-xs text-[var(--primary-color)]">{label}</Label>
+    <div className="flex flex-col">
+      <Field className="flex flex-col data-disabled:opacity-50" disabled={disabled}>
+        <Label className="mb-2 text-xs text-[var(--primary-color)]">{label}</Label>
 
-      <Listbox name={name} value={value} onChange={setValue}>
-        <ListboxButton
-          value={value === null ? undefined : value}
-          className={`relative border-b-1 border-[var(--secondary-color)] text-start indent-1.5 text-sm data-disabled:cursor-not-allowed ${value ? "" : "text-[var(--text-muted)]"}`}
-        >
-          {selectedOptionLabel}
-          <ChevronDownIcon
-            className="pointer-events-none absolute top-0 right-1.5 bottom-0 m-auto size-4 fill-[var(--text-muted)]"
-            aria-hidden="true"
-          />
-        </ListboxButton>
+        <Listbox name={name} onChange={onChange}>
+          <ListboxButton
+            value={value}
+            className={`relative border-b-1 border-[var(--secondary-color)] text-start indent-1.5 text-sm data-disabled:cursor-not-allowed ${value ? "" : "text-[var(--text-muted)]"}`}
+          >
+            {selectedOptionLabel}
+            <ChevronDownIcon
+              className="pointer-events-none absolute top-0 right-1.5 bottom-0 m-auto size-4 fill-[var(--text-muted)]"
+              aria-hidden="true"
+            />
+          </ListboxButton>
 
-        <ListboxOptions
-          anchor="bottom"
-          transition
-          className="max-h-36 w-(--button-width) overflow-y-auto rounded-b-sm border border-[var(--foreground)] bg-[var(--foreground)] px-2"
-        >
-          {!isMandatory && (
+          <ListboxOptions
+            anchor="bottom"
+            transition
+            className="max-h-36 w-(--button-width) overflow-y-auto rounded-b-sm border border-[var(--foreground)] bg-[var(--foreground)] px-2"
+          >
             <ListboxOption
-              key={"default-option-select"}
-              value={null}
+              key={defaultValue}
+              value={defaultValue ?? null}
               className="text-[var(--primary-color) mt-2 cursor-default py-1 text-sm text-[var(--text-muted)] data-[headlessui-state~=active]:text-[var(--primary-color)] data-[headlessui-state~=selected]:text-[var(--primary-color)]"
             >
-              {defaultOption}
+              {defaultLabel}
             </ListboxOption>
-          )}
 
-          {groupedOptions.map(({ groupLabel, options }) => (
-            <div
-              key={multipleOptionGroups ? `multiple-option-groups-${groupLabel}` : groupLabel}
-              className={`${multipleOptionGroups ? "mt-2 divide-y divide-[var(--secondary-color)]" : ""}`}
-            >
-              {multipleOptionGroups && (
-                <h3 className="pb-1 text-sm font-semibold text-[var(--text-muted)]">
-                  {groupLabel}
-                </h3>
-              )}
+            {groupedOptions.map(({ groupLabel, options }) => (
+              <div
+                key={multipleOptionGroups ? `multiple-option-groups-${groupLabel}` : groupLabel}
+                className={`${multipleOptionGroups ? "mt-2 divide-y divide-[var(--secondary-color)]" : ""}`}
+              >
+                {multipleOptionGroups && (
+                  <h3 className="pb-1 text-sm font-semibold text-[var(--text-muted)]">
+                    {groupLabel}
+                  </h3>
+                )}
 
-              {options.map(({ value, label }) => (
-                <ListboxOption
-                  key={value}
-                  value={value}
-                  className="text-[var(--primary-color) cursor-default py-1 text-sm text-[var(--text-muted)] data-[headlessui-state~=active]:text-[var(--primary-color)] data-[headlessui-state~=selected]:text-[var(--primary-color)]"
-                >
-                  {label}
-                </ListboxOption>
-              ))}
-            </div>
-          ))}
-        </ListboxOptions>
-      </Listbox>
-    </Field>
+                {options.map(({ value, label }) => (
+                  <ListboxOption
+                    key={value}
+                    value={value}
+                    className="text-[var(--primary-color) cursor-default py-1 text-sm text-[var(--text-muted)] data-[headlessui-state~=active]:text-[var(--primary-color)] data-[headlessui-state~=selected]:text-[var(--primary-color)]"
+                  >
+                    {label}
+                  </ListboxOption>
+                ))}
+              </div>
+            ))}
+          </ListboxOptions>
+        </Listbox>
+      </Field>
+
+      {error !== undefined && (
+        <span className="mt-2 min-h-4 text-[10px] text-[var(--error-color)]">{error ?? ""}</span>
+      )}
+    </div>
   );
 };
 
