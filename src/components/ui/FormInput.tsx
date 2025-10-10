@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 type FormInputType = {
   name: string;
   value: string | null;
@@ -54,4 +56,4 @@ const FormInput = ({
   );
 };
 
-export default FormInput;
+export default memo(FormInput);

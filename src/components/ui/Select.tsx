@@ -9,6 +9,7 @@ import {
   ListboxOptions
 } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { memo } from "react";
 
 import { CategoryType, GroupedOptions } from "@/lib/types";
 
@@ -103,4 +104,4 @@ const Select = ({
   );
 };
 
-export default Select;
+export default memo(Select);

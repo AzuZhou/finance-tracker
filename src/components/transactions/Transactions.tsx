@@ -1,7 +1,7 @@
 "use client";
 
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useTransactions } from "@/contexts/TransactionsContext";
 import { TransactionType } from "@/lib/types";
@@ -14,37 +14,31 @@ import Empty from "../ui/Empty";
 import FloatingButton from "../ui/FloatingButton";
 import Modal from "../ui/Modal";
 
+type ModalState =
+  | { type: "closed" }
+  | { type: "filter" }
+  | { type: "transaction"; transactionType: TransactionType };
+
 const Transactions = () => {
   const { transactions } = useTransactions();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [transactionType, setTransactionType] = useState<TransactionType | null>(null);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleTransaction = (transactionType: TransactionType) => {
-    setTransactionType(transactionType);
-  };
+  const [modalState, setModalState] = useState<ModalState>({ type: "closed" });
 
   const closeModal = () => {
-    setTransactionType(null);
-    setIsModalOpen(false);
+    setModalState({ type: "closed" });
   };
 
-  useEffect(() => {
-    if (transactionType) openModal();
-  }, [transactionType]);
+  const getModalTitle = () => {
+    if (modalState.type !== "transaction") return "";
+    return modalState.transactionType === "income" ? "Add Income" : "Add Expense";
+  };
 
   return (
     <div className="w-full sm:max-w-3xl">
-      <FiltersButton handleClick={openModal} />
+      <FiltersButton handleClick={() => setModalState({ type: "filter" })} />
 
-      {!transactionType && (
-        <Modal isOpen={isModalOpen} onClose={closeModal} title="Filter transactions">
-          <FilteredTransactions transactions={transactions} onClose={closeModal} />
-        </Modal>
-      )}
+      <Modal isOpen={modalState.type === "filter"} onClose={closeModal} title="Filter transactions">
+        <FilteredTransactions transactions={transactions} onClose={closeModal} />
+      </Modal>
 
       {transactions.length === 0 && (
         <Empty
@@ -57,27 +51,27 @@ const Transactions = () => {
 
       <div className="fixed right-0 bottom-4 left-0 flex justify-center gap-4">
         <FloatingButton
-          handleClick={() => handleTransaction("income")}
+          handleClick={() => setModalState({ type: "transaction", transactionType: "income" })}
           label="Income"
           icon={PlusIcon}
         />
 
         <FloatingButton
-          handleClick={() => handleTransaction("expense")}
+          handleClick={() => setModalState({ type: "transaction", transactionType: "expense" })}
           label="Expense"
           icon={MinusIcon}
         />
       </div>
 
-      {transactionType && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          title={transactionType === "income" ? "Add Income" : "Add Expense"}
-        >
-          <AddTransactionForm onClose={closeModal} type={transactionType} />
-        </Modal>
-      )}
+      <Modal
+        isOpen={modalState.type === "transaction"}
+        onClose={closeModal}
+        title={getModalTitle()}
+      >
+        {modalState.type === "transaction" && (
+          <AddTransactionForm onClose={closeModal} type={modalState.transactionType} />
+        )}
+      </Modal>
     </div>
   );
 };

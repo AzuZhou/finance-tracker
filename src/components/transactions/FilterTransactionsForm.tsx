@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 import DatePicker from "@/components/ui/DatePicker";
 import Form from "@/components/ui/Form";
@@ -11,7 +11,7 @@ import { CATEGORIES } from "@/lib/contants";
 import { TransactionFilters, DateRangeType, TransactionType, CategoryType } from "@/lib/types";
 import getOptions from "@/lib/utils/getOptions";
 
-const categoryDefault = { value: "default-category-option", label: "Select a category" };
+const categoryDefault = { value: "", label: "Select a category" };
 
 const FilterTransactionsForm = ({
   setFilters,
@@ -39,6 +39,8 @@ const FilterTransactionsForm = ({
   useEffect(() => {
     setCategory(categoryDefault.value);
   }, [type]);
+
+  const groupedOptions = useMemo(() => getOptions(CATEGORIES, type), [type]);
 
   return (
     <Form onSubmit={handleSubmit} onClose={onClose} submitLabel="Filter">
@@ -68,7 +70,7 @@ const FilterTransactionsForm = ({
         onChange={setCategory}
         defaultLabel={categoryDefault.label}
         defaultValue={categoryDefault.value}
-        groupedOptions={getOptions(CATEGORIES, type)}
+        groupedOptions={groupedOptions}
       />
 
       <DatePicker range={dateRange} onRangeChange={setDateRange} />
