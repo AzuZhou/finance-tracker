@@ -6,6 +6,7 @@ import { Transaction } from "@/lib/types";
 import generateTransactions from "@/lib/utils/generateTransactions";
 
 type TransactionsContextType = {
+  isLoading: boolean;
   transactions: Transaction[];
   addTransaction: (transaction: Transaction) => void;
 };
@@ -18,17 +19,34 @@ const getSortedTransactions = (transactions: Transaction[]) => {
 
 const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const storedTransactions = localStorage.getItem("transactions");
+    const fetchTransactions = async () => {
+      const storedTransactions = localStorage.getItem("transactions");
 
-    if (!storedTransactions) {
-      const generatedTransactions = generateTransactions();
-      const sortedTransactions = getSortedTransactions(generatedTransactions);
-      setTransactions(sortedTransactions);
-    } else {
-      setTransactions(JSON.parse(storedTransactions));
-    }
+      if (!storedTransactions) {
+        try {
+          const response = await fetch("/api/transactions");
+          if (!response.ok) throw new Error("Failed to fetch transactions");
+
+          const { transactions } = await response.json();
+          const sortedTransactions = getSortedTransactions(transactions);
+
+          setTransactions(sortedTransactions);
+          localStorage.setItem("transactions", JSON.stringify(sortedTransactions));
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setTransactions(JSON.parse(storedTransactions));
+        setIsLoading(false);
+      }
+    };
+
+    fetchTransactions();
   }, []);
 
   useEffect(() => {
@@ -42,7 +60,7 @@ const TransactionsProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <TransactionsContext.Provider value={{ transactions, addTransaction }}>
+    <TransactionsContext.Provider value={{ transactions, addTransaction, isLoading }}>
       {children}
     </TransactionsContext.Provider>
   );
