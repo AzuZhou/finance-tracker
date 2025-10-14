@@ -3,7 +3,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 import { Transaction } from "@/lib/types";
-import generateTransactions from "@/lib/utils/generateTransactions";
 
 type TransactionsContextType = {
   isLoading: boolean;

@@ -8,13 +8,16 @@ import getNormalizedDateRange from "@/lib/utils/getNormalizedDateRange";
 import FilterTransactionsForm from "./FilterTransactionsForm";
 import TransactionCards from "./TransactionCards";
 import Empty from "../ui/Empty";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 const FilteredTransactions = ({
   transactions,
-  onClose
+  onClose,
+  isLoading
 }: {
   transactions: Transaction[];
   onClose: () => void;
+  isLoading: boolean;
 }) => {
   const [filters, setFilters] = useState<TransactionFilters>({});
 
@@ -41,7 +44,7 @@ const FilteredTransactions = ({
     <>
       <FilterTransactionsForm setFilters={setFilters} onClose={onClose} />
 
-      {Object.keys(filters).length > 0 && filteredTransactions.length === 0 && (
+      {Object.keys(filters).length > 0 && filteredTransactions.length === 0 && !isLoading && (
         <Empty
           title="No results found"
           message="Try adjusting the filters."
@@ -50,11 +53,15 @@ const FilteredTransactions = ({
         />
       )}
 
-      <div className="mt-5 sm:overflow-y-auto">
-        {Object.keys(filters).length > 0 && filteredTransactions.length > 0 && (
-          <TransactionCards transactions={filteredTransactions} />
-        )}
-      </div>
+      {isLoading && <LoadingSpinner marginTop="mt-10" />}
+
+      {!isLoading && (
+        <div className="mt-5 sm:overflow-y-auto">
+          {Object.keys(filters).length > 0 && filteredTransactions.length > 0 && (
+            <TransactionCards transactions={filteredTransactions} />
+          )}
+        </div>
+      )}
     </>
   );
 };

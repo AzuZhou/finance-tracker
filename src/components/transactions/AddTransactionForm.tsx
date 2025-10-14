@@ -65,6 +65,7 @@ const AddTransactionForm = ({ type, onClose }: { type: TransactionType; onClose:
           value={fields.category.value}
           onChange={fieldHandlers.category}
           error={fields.category.error}
+          defaultLabel="Select a category"
         />
       </Form>
     </>

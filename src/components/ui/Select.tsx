@@ -31,7 +31,6 @@ const Select = ({
   onChange,
   value,
   defaultLabel = "Select an option",
-  defaultValue,
   groupedOptions,
   disabled,
   error
@@ -64,9 +63,8 @@ const Select = ({
             className="max-h-36 w-(--button-width) overflow-y-auto rounded-b-sm border border-[var(--foreground)] bg-[var(--foreground)] px-2"
           >
             <ListboxOption
-              key={defaultValue}
-              value={defaultValue ?? null}
-              className="text-[var(--primary-color) mt-2 cursor-default py-1 text-sm text-[var(--text-muted)] data-[headlessui-state~=active]:text-[var(--primary-color)] data-[headlessui-state~=selected]:text-[var(--primary-color)]"
+              value=""
+              className="text-[var(--primary-color) cursor-default py-1 text-sm text-[var(--text-muted)] data-[headlessui-state~=active]:text-[var(--primary-color)] data-[headlessui-state~=selected]:text-[var(--primary-color)]"
             >
               {defaultLabel}
             </ListboxOption>

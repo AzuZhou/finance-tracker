@@ -7,7 +7,7 @@ const CATEGORIES = {
   expense: [
     { value: "groceries", label: "Groceries" },
     { value: "restaurants", label: "Restaurants" },
-    { value: "rent_and_utilities", label: "Rent and utilitie" },
+    { value: "rent_and_utilities", label: "Rent and utilities" },
     { value: "healthcare", label: "Healthcare" },
     { value: "sports", label: "Sports" },
     { value: "education", label: "Education" },

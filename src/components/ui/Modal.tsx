@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { XCircleIcon } from "@heroicons/react/24/solid";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Fragment } from "react";
 
 type ModalProps = {
@@ -30,8 +30,13 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
             >
               {title && <h2 className="font-center text-lg font-medium">{title}</h2>}
 
-              <button type="button" onClick={onClose} className="cursor-pointer">
-                <XCircleIcon className="h-5 w-5 rounded-full bg-[var(--primary-color)] text-[var(--background)]" />
+              <button
+                type="button"
+                className="primary-button rounded-full border"
+                onClick={onClose}
+                aria-label="Close"
+              >
+                <XMarkIcon className="h-5 w-5 p-1" />
               </button>
             </div>
 

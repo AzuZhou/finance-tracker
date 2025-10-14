@@ -12,6 +12,7 @@ import FiltersButton from "./FiltersButton";
 import TransactionCards from "./TransactionCards";
 import Empty from "../ui/Empty";
 import FloatingButton from "../ui/FloatingButton";
+import LoadingSpinner from "../ui/LoadingSpinner";
 import Modal from "../ui/Modal";
 
 type ModalState =
@@ -20,7 +21,7 @@ type ModalState =
   | { type: "transaction"; transactionType: TransactionType };
 
 const Transactions = () => {
-  const { transactions } = useTransactions();
+  const { transactions, isLoading } = useTransactions();
   const [modalState, setModalState] = useState<ModalState>({ type: "closed" });
 
   const closeModal = () => {
@@ -34,44 +35,52 @@ const Transactions = () => {
 
   return (
     <div className="w-full sm:max-w-3xl">
-      <FiltersButton handleClick={() => setModalState({ type: "filter" })} />
+      <FiltersButton handleClick={() => setModalState({ type: "filter" })} disabled={isLoading} />
 
       <Modal isOpen={modalState.type === "filter"} onClose={closeModal} title="Filter transactions">
-        <FilteredTransactions transactions={transactions} onClose={closeModal} />
+        <FilteredTransactions
+          isLoading={isLoading}
+          transactions={transactions}
+          onClose={closeModal}
+        />
       </Modal>
 
-      {transactions.length === 0 && (
+      {transactions.length === 0 && !isLoading && (
         <Empty
           title="No transactions yet"
           message="Add your first income or expense to get started."
         />
       )}
 
-      {transactions.length > 0 && <TransactionCards transactions={transactions} />}
+      {isLoading && <LoadingSpinner gap="gap-6" />}
 
-      <div className="fixed right-0 bottom-4 left-0 flex justify-center gap-4">
+      {transactions.length > 0 && !isLoading && <TransactionCards transactions={transactions} />}
+
+      <div className="fixed right-0 bottom-4 left-0 flex items-center justify-center gap-4">
         <FloatingButton
+          disabled={isLoading}
           handleClick={() => setModalState({ type: "transaction", transactionType: "income" })}
           label="Income"
           icon={PlusIcon}
         />
 
         <FloatingButton
+          disabled={isLoading}
           handleClick={() => setModalState({ type: "transaction", transactionType: "expense" })}
           label="Expense"
           icon={MinusIcon}
         />
       </div>
 
-      <Modal
-        isOpen={modalState.type === "transaction"}
-        onClose={closeModal}
-        title={getModalTitle()}
-      >
-        {modalState.type === "transaction" && (
+      {modalState.type === "transaction" && (
+        <Modal
+          isOpen={modalState.type === "transaction"}
+          onClose={closeModal}
+          title={getModalTitle()}
+        >
           <AddTransactionForm onClose={closeModal} type={modalState.transactionType} />
-        )}
-      </Modal>
+        </Modal>
+      )}
     </div>
   );
 };

@@ -11,8 +11,6 @@ import { CATEGORIES } from "@/lib/contants";
 import { TransactionFilters, DateRangeType, TransactionType, CategoryType } from "@/lib/types";
 import getOptions from "@/lib/utils/getOptions";
 
-const categoryDefault = { value: "", label: "Select a category" };
-
 const FilterTransactionsForm = ({
   setFilters,
   onClose
@@ -21,9 +19,7 @@ const FilterTransactionsForm = ({
   onClose: () => void;
 }) => {
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState<CategoryType | typeof categoryDefault.value>(
-    categoryDefault.value
-  );
+  const [category, setCategory] = useState<CategoryType>("");
   const [type, setType] = useState<TransactionType | null>(null);
   const [dateRange, setDateRange] = useState<DateRangeType>({
     from: null,
@@ -37,7 +33,7 @@ const FilterTransactionsForm = ({
   };
 
   useEffect(() => {
-    setCategory(categoryDefault.value);
+    setCategory("");
   }, [type]);
 
   const groupedOptions = useMemo(() => getOptions(CATEGORIES, type), [type]);
@@ -68,8 +64,7 @@ const FilterTransactionsForm = ({
         name="category"
         value={category}
         onChange={setCategory}
-        defaultLabel={categoryDefault.label}
-        defaultValue={categoryDefault.value}
+        defaultLabel="Select a category"
         groupedOptions={groupedOptions}
       />
 
