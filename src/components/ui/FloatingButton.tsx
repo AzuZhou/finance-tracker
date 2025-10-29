@@ -13,6 +13,7 @@ const FloatingButton = ({ handleClick, label, icon: Icon, disabled }: FloatingBu
       disabled={disabled}
       className="primary-button rounded-full border"
       onClick={handleClick}
+      aria-label={label}
     >
       <Icon className="h-8 w-8 p-1" />
     </button>
