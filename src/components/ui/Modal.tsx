@@ -4,6 +4,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Fragment } from "react";
 
+import Button from "../ui/Button";
+
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -30,14 +32,15 @@ const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
             >
               {title && <h2 className="font-center text-lg font-medium">{title}</h2>}
 
-              <button
+              <Button
                 type="button"
-                className="primary-button rounded-full border"
+                variant="primary"
+                shape="round"
                 onClick={onClose}
                 aria-label="Close"
               >
                 <XMarkIcon className="h-5 w-5 p-1" />
-              </button>
+              </Button>
             </div>
 
             {children}

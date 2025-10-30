@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "../ui/Button";
+
 export type FloatingButtonProps = {
   handleClick: () => void;
   label: string;
@@ -9,14 +11,16 @@ export type FloatingButtonProps = {
 
 const FloatingButton = ({ handleClick, label, icon: Icon, disabled }: FloatingButtonProps) => (
   <div className="flex flex-col items-center gap-2">
-    <button
+    <Button
       disabled={disabled}
-      className="primary-button rounded-full border"
+      variant="primary"
+      shape="round"
       onClick={handleClick}
       aria-label={label}
+      className="shadow-md"
     >
       <Icon className="h-8 w-8 p-1" />
-    </button>
+    </Button>
     <span
       className={`rounded-xs bg-[var(--background)]/95 pr-1 pl-1 text-[10px] text-[var(--primary-color)] ${disabled ? "disabled" : ""}`}
     >
