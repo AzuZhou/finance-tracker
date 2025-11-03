@@ -25,7 +25,11 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${robotoSans.variable} antialiased`}>
-          <TransactionsProvider>{children}</TransactionsProvider>
+          <TransactionsProvider>
+            <main className="flex min-h-screen flex-col items-center gap-10 p-4 font-sans">
+              {children}
+            </main>
+          </TransactionsProvider>
         </body>
       </html>
     </ClerkProvider>
